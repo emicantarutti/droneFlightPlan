@@ -65,6 +65,8 @@ public class DroneTests extends TestCase {
 		wait.until(ExpectedConditions.visibilityOf(MissionObjects.savedFlightByName(driver, "Flight#1")));
 		Thread.sleep(1000);
 		
+		MissionObjects.savedFlights(driver).click();
+		
 		MissionObjects.savedFlightByName(driver, "Flight#1");
 		
 
