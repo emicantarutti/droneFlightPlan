@@ -62,14 +62,47 @@ public class DroneTests extends TestCase {
 		MissionObjects.flightTitle(driver).sendKeys("Flight#1");
 		MissionObjects.flightTitle(driver).sendKeys(Keys.ENTER);
 		
-		wait.until(ExpectedConditions.visibilityOf(MissionObjects.savedFlightByName(driver, "Flight#1")));
-		Thread.sleep(1000);
 		
-		MissionObjects.savedFlights(driver).click();
 		
-		MissionObjects.savedFlightByName(driver, "Flight#1");
+		/*wait.until(ExpectedConditions.visibilityOf(MissionObjects.savedFlightByName(driver, "Flight#1")));
+		Thread.sleep(1000);*/
+		
+	/*	MissionObjects.savedFlights(driver).click();*/
+		
+		MissionObjects.addNewFlight(driver).click();
+		
+		
+		
+		//MissionObjects.savedFlightByName(driver, "Flight#1");
 		
 
+	}
+	
+	@Test
+	public void aNewFlightPlan() throws Exception{
+		creatingAFlightPlan();
+		
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		
+		MissionObjects.addNewFlight(driver).click();
+		
+		Actions actions = new Actions(driver);
+		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(10, 250).click().build().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(OpenStreetObjects.column(driver)));
+		actions.clickAndHold(OpenStreetObjects.column(driver)).moveByOffset(150, 100).click().build().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(OpenStreetObjects.mainDiv(driver)));
+		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(150, 100).click().build().perform();
+		wait.until(ExpectedConditions.elementToBeClickable(OpenStreetObjects.mapQuadrant(driver)));
+		actions.clickAndHold(OpenStreetObjects.mapQuadrant(driver)).moveByOffset(50, 50).click().build().perform();
+		
+		
+		wait.until(ExpectedConditions.elementToBeClickable(MissionObjects.flightTitle(driver)));
+		
+		MissionObjects.flightTitle(driver).click();
+		MissionObjects.flightTitle(driver).clear();
+		MissionObjects.flightTitle(driver).sendKeys("Flight#2");
+		MissionObjects.flightTitle(driver).sendKeys(Keys.ENTER);
+		
 	}
 
 }

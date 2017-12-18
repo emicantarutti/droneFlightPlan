@@ -13,13 +13,18 @@ public class MissionObjects {
 	}
 	
 	public static WebElement savedFlights(WebDriver driver) {
-		element = driver.findElement(By.cssSelector(".md-no-style.md-button.md-ink-ripple"));
+		element = driver.findElement(By.cssSelector(".md-no-style.md-button.md-ink-ripple[0])"));
 		return element;
 	}
 	
 	public static WebElement savedFlightByName(WebDriver driver, String linkText) {
 		//element= driver.findElement(By.xpath("//h3[contains(text(), '" + linkText + "')]"));
 		element = savedFlights(driver).findElement(By.xpath("//h3[text() ='" + linkText + "']"));
+		return element;
+	}
+	
+	public static WebElement addNewFlight(WebDriver driver){
+		element = driver.findElement(By.cssSelector("button[ng-click= 'store.createFlightPlan()']"));
 		return element;
 	}
 	
