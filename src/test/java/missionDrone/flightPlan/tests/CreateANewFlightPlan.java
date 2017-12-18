@@ -13,16 +13,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import junit.framework.TestCase;
-import objectModel.LandingPageObjects;
-import objectModel.MissionObjects;
-import objectModel.OpenStreetObjects;
-import waits.WaitForPageToLoad;
+import missionDrone.flightPlan.objectModel.LandingPageObjects;
+import missionDrone.flightPlan.objectModel.MissionObjects;
+import missionDrone.flightPlan.objectModel.OpenStreetObjects;
+import missionDrone.flightPlan.waits.WaitForPageToLoad;
+
 
 /**
  * Created by Emiliano Cantarutti
  */
-public class CreateANewFlightPlan extends TestCase {
+public class CreateANewFlightPlan{
 
 	private static WebDriver driver = null;
 	private static String url = "https://stupendous-birth.surge.sh/";
@@ -59,7 +59,7 @@ public class CreateANewFlightPlan extends TestCase {
 
 
 	@Test
-	public void creatingAFlightPlan() throws Exception {
+	public void creatingAFlightPlan(){
 		LandingPageObjects.createNewFlightPlanButton(driver).click();
 		waiting.waitForLoad(driver);
 		
@@ -84,7 +84,6 @@ public class CreateANewFlightPlan extends TestCase {
 		
 		//Verification that the first coordinate matches the starting point of the route
 		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(10, 250).click().build().perform();
-		waiting.waitForLoad(driver);
 		Assert.assertTrue((value = MissionObjects.coordinates(driver).getAttribute("innerHTML")).startsWith("#1: N46."));
 		
 

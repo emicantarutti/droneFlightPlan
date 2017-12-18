@@ -1,4 +1,4 @@
-package waits;
+package missionDrone.flightPlan.waits;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

@@ -1,4 +1,4 @@
-package objectModel;
+package missionDrone.flightPlan.objectModel;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

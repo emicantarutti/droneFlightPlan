@@ -13,10 +13,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import junit.framework.TestCase;
-import objectModel.LandingPageObjects;
-import objectModel.MissionObjects;
-import objectModel.OpenStreetObjects;
-import waits.WaitForPageToLoad;
+import missionDrone.flightPlan.objectModel.LandingPageObjects;
+import missionDrone.flightPlan.objectModel.MissionObjects;
+import missionDrone.flightPlan.objectModel.OpenStreetObjects;
+import missionDrone.flightPlan.waits.WaitForPageToLoad;
 
 /**
  * Created by Emiliano Cantarutti
