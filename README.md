@@ -41,7 +41,7 @@ If you prefer to execute one test at a time, the command that you should execute
 ```
 You can execute more than one, separated by comma ','.
 
-If you decide to import the whole maven project to an IDE (Eclipse, for instance), all you have to do, is to run the classes that are in the package 'appium.wonkyCalculatorTests.tests' as 'TestNG test'. Au contraire, if you prefer to run the tests altogether also from the IDE, you can do the same, but running as a 'TestNG Suite' the testng.xml file located under the 'src' folder.
+If you decide to import the whole maven project to an IDE (Eclipse, for instance), all you have to do, is to run the classes that are in the package 'missionDrone.flightPlan.tests' as 'TestNG test'. Au contraire, if you prefer to run the tests altogether also from the IDE, you can do the same, but running as a 'TestNG Suite' the testng.xml file located under the 'src' folder.
 
 ### Structure
 #### Wait Class
