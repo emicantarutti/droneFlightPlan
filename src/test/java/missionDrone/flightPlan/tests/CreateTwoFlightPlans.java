@@ -1,6 +1,6 @@
-package MissionDrone.FlightPlan;
 
-import org.openqa.selenium.Keys;
+package missionDrone.flightPlan.tests;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -22,70 +23,74 @@ import waits.WaitForPageToLoad;
  * Created by Emiliano Cantarutti
  */
 public class CreateTwoFlightPlans extends TestCase {
-
+	
 	private static WebDriver driver = null;
 	private static String url = "https://stupendous-birth.surge.sh/";
 	WaitForPageToLoad waiting = new WaitForPageToLoad();
-
-	@BeforeMethod
-	public static void initialize() {
+	WebDriverWait wait;
+	Actions actions;
+	String value;
+	
+	@BeforeClass
+	public void setUp(){
 		if (driver == null) {
 			System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--disable-extensions");
 			driver = new ChromeDriver(options);
-			driver.manage().window().maximize();
-
 		}
+		wait = new WebDriverWait(driver, 10);
+		actions = new Actions(driver);
+	}
+	
+	
+	@BeforeMethod
+	public static void initialize() {
+		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 		driver.get(url);
-		
+
 	}
 	
 	@AfterMethod
 	public static void closingUp(){
 		driver.close();
 	}
+
 	
 	@Test
-	public void aNewFlightPlan() throws Exception{
-		
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+	public void twoFlightPlans() throws Exception{
+		LandingPageObjects.createNewFlightPlanButton(driver).click();
 		waiting.waitForLoad(driver);
-				
-		MissionObjects.addNewFlight(driver).click();
 		
-		Actions actions = new Actions(driver);
+		//Here the first route gets created
 		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(10, 250).click().build().perform();
-		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(150, 100).click().build().perform();
-		wait.until(ExpectedConditions.elementToBeClickable(OpenStreetObjects.mapQuadrant(driver)));
-		actions.clickAndHold(OpenStreetObjects.mapQuadrant(driver)).moveByOffset(50, 50).click().build().perform();
-		
-		
-		wait.until(ExpectedConditions.elementToBeClickable(MissionObjects.flightTitle(driver)));
-		
-		MissionObjects.selectingACreatedFlight(driver, 1).click();
-		
-	}
-	
-	@Test
-	public void newFlightThruFirstOneButton(){
-		LandingPageObjects.createFirstOneButton(driver).click();
-		
-		
-		waiting.waitForLoad(driver);
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		
-		Actions actions = new Actions(driver);
-		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(10, 250).click().build().perform();
-		wait.until(ExpectedConditions.elementToBeClickable(OpenStreetObjects.column(driver)));
-		actions.clickAndHold(OpenStreetObjects.column(driver)).moveByOffset(150, 100).click().build().perform();
 		wait.until(ExpectedConditions.elementToBeClickable(OpenStreetObjects.mainDiv(driver)));
 		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(150, 100).click().build().perform();
 		wait.until(ExpectedConditions.elementToBeClickable(OpenStreetObjects.mapQuadrant(driver)));
 		actions.clickAndHold(OpenStreetObjects.mapQuadrant(driver)).moveByOffset(50, 50).click().build().perform();
-	
+		
+		waiting.waitForLoad(driver);
+
+		//Adding a second flight
+		MissionObjects.addNewFlight(driver).click();
+		waiting.waitForLoad(driver);
+		
+		//Flight#2 route
+		actions.clickAndHold(OpenStreetObjects.mapQuadrant(driver)).moveByOffset(250, 50).click().build().perform();
+		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(10, 250).click().build().perform();
+		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(150, 100).click().build().perform();
+		
+		
+		
+		//Opening the last created route
+		MissionObjects.selectingACreatedFlight(driver, 1).click();
+		
+		//Verification that the first coordinate matches the starting point of the route
+		actions.clickAndHold(OpenStreetObjects.mainDiv(driver)).moveByOffset(10, 250).click().build().perform();
+		waiting.waitForLoad(driver);
+		Assert.assertTrue((value = MissionObjects.coordinates(driver).getAttribute("innerHTML")).startsWith("#2: N46."));
+		
 		
 	}
-
 }

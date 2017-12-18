@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Mission Drone Test Suite">
+
+	<test name="Mission Drone Tests">
+		<packages>
+			<package name="missionDrone.flightPlan.tests" />
+		</packages>
+	</test>
+
+</suite>
