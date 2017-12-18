@@ -11,4 +11,10 @@ public class LandingPageObjects {
 		element = driver.findElement(By.xpath("//button[@class = 'md-raised md-primary md-button md-ink-ripple']"));
 		return element;
 	}
+	
+	public static WebElement createFirstOneButton(WebDriver driver){
+		element = driver.findElement(By.xpath("//a[@ng-click= 'store.createFlightPlan()']"));
+		return element;
+	}
+	
 }
