@@ -20,7 +20,7 @@ import objectModel.MissionObjects;
 import objectModel.OpenStreetObjects;
 
 /**
- * Unit test for simple App.
+ * Created by Emiliano Cantarutti
  */
 public class DroneTests extends TestCase {
 
